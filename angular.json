@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "dadata-control"
+    }
+  },
+  "defaultProject": "dadata-control",
+  "cli": {
+    "analytics": false
+  }
 }

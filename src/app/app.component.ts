@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {DadataConfig} from './components/dadata/dadata-config';
+import {DadataTypes} from './interfaces/DadataTypes';
+import {DadataSuggestion} from './interfaces/DadataSuggestion';
+import {DadataLocation} from './interfaces/DadataLocation';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +11,48 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'dadata-control';
+
+  locations:DadataLocation[] = [];
+
+  cfg: DadataConfig = {
+    type: DadataTypes.address,
+    bounds: {
+      fromBound: {
+        value: 'city'
+      },
+      toBound: {
+        value: 'city'
+      }
+    },
+    constraint: 'city',
+    class: 'test'
+  }
+
+  cityCfg: DadataConfig = {
+    type: DadataTypes.address,
+    bounds: {
+      fromBound: {
+        value: 'street'
+      },
+      toBound: {
+        value: 'street'
+      }
+    },
+    constraint: 'street',
+    class: 'test2',
+    locations: this.locations
+  }
+
+  addConstraint(constraint:string, event: DadataSuggestion){
+    if(constraint == 'region'){
+      this.clearLocations();
+    }
+    let constraintValue = event.data[constraint]
+    this.locations.push({[constraint]: constraintValue})
+  }
+
+  clearLocations() {
+    this.locations = [];
+  }
+
 }
