@@ -25,7 +25,8 @@ export class AppComponent {
       }
     },
     constraint: 'city',
-    class: 'test'
+    class: 'test',
+    label: 'Город'
   }
 
   cityCfg: DadataConfig = {
@@ -40,7 +41,8 @@ export class AppComponent {
     },
     constraint: 'street',
     class: 'test2',
-    locations: this.locations
+    label: 'Улица',
+    locations: this.locations,
   }
 
   addConstraint(constraint:string, event: DadataSuggestion){

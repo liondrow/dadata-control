@@ -1,23 +1,21 @@
 <div class="autocomplete">
-  <p>TEST DADATA</p>
+  <nb-select-label>{{config.label}}</nb-select-label>
   <input
+    nbInput
     [disabled]="disabled ? true : null"
+    class="autocomplete-input"
     type="text"
-    class="search"
     [ngClass]="config.class ? config.class : ''"
     #inputValue
     (input)="getData(inputValue.value)"
     [placeholder]="placeholder"
-    [(ngModel)]="value"
-    autocomplete="on" />
+    [nbAutocomplete]="auto" />
 
-  <div *ngIf="suggestionData.length">
-    <div class="autocomplete-items">
-      <select name="dadata-options" id="dadata-options" [(ngModel)]="selectedDadata" (change)="onChange($event)">
-          <option [ngValue]="item" *ngFor="let item of suggestionData; let i = index" [id]="i">
-              {{item.value}}
-          </option>
-      </select>
-    </div>
-  </div>
+  <nb-autocomplete #auto (selectedChange)="onChange($event)">
+
+    <nb-option *ngFor="let item of suggestionData" [value]="item">
+      {{item.value}}
+    </nb-option>
+
+  </nb-autocomplete>
 </div>

@@ -5,6 +5,16 @@ import { AppComponent } from './app.component';
 import {DadataComponent} from './components/dadata/dadata.component';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
+import {
+  NbAutocompleteModule,
+  NbButtonModule,
+  NbCardModule, NbInputModule,
+  NbLayoutModule, NbSelectModule,
+  NbSidebarModule,
+  NbSidebarService,
+  NbThemeModule
+} from '@nebular/theme';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -14,9 +24,18 @@ import {FormsModule} from '@angular/forms';
   imports: [
     HttpClientModule,
     BrowserModule,
-    FormsModule
+    FormsModule,
+    RouterModule.forRoot([]),
+    NbThemeModule.forRoot({name: 'dark'}),
+    NbLayoutModule,
+    NbSidebarModule,
+    NbButtonModule,
+    NbAutocompleteModule,
+    NbCardModule,
+    NbInputModule,
+    NbSelectModule
   ],
-  providers: [],
+  providers: [NbSidebarService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

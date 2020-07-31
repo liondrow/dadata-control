@@ -7,7 +7,6 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {DadataConfig, DadataConfigDefault} from './dadata-config';
 import {DadataSuggestion} from '../../interfaces/DadataSuggestion';
 import {DadataResponse} from '../../interfaces/DadataResponse';
-import {DadataLocation} from '../../interfaces/DadataLocation';
 
 @Component({
   selector: 'app-dadata',
@@ -24,7 +23,6 @@ import {DadataLocation} from '../../interfaces/DadataLocation';
 export class DadataComponent implements OnInit, ControlValueAccessor {
 
   suggestionData: DadataSuggestion[] = [];
-  selectedDadata: any;
 
   private v: any = '';
 
@@ -47,17 +45,6 @@ export class DadataComponent implements OnInit, ControlValueAccessor {
     private dadataService: DadataService
   ) { }
 
-  get value(): any {
-    return this.v;
-  }
-
-  set value(v: any) {
-    if (v !== this.v) {
-      this.v = v;
-      this.propagateChange(v);
-    }
-  }
-
   ngOnInit(): void {
     this.inputString$.pipe(
       debounce(() => timer(this.config.delay ? this.config.delay : 500)),
@@ -74,9 +61,9 @@ export class DadataComponent implements OnInit, ControlValueAccessor {
   }
 
   onChange(e) {
-    this.selected.emit(this.selectedDadata);
-    this.inputValue.nativeElement.value = this.selectedDadata.value
-    this.propagateChange(e.target.value);
+    this.selected.emit(e);
+    this.inputValue.nativeElement.value = e.value
+    this.propagateChange(e.value);
   }
 
   registerOnChange(fn: any): void {

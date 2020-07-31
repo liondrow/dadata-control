@@ -31,6 +31,7 @@ export class DadataService {
       {query: query},
       {count: config?.limit},
       {locations: config?.locations},
+      {restrict_value: true},
       {from_bound: config?.bounds?.fromBound},
       {to_bound: config?.bounds?.toBound}
     )

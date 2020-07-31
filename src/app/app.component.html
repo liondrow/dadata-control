@@ -1,2 +1,15 @@
-<app-dadata [config]="cfg" (selected)="addConstraint(cfg.constraint, $event)"></app-dadata>
-<app-dadata [config]="cityCfg" (selected)="addConstraint(cityCfg.constraint, $event)"></app-dadata>
+<nb-layout>
+  <nb-layout-header fixed>Dadata Test</nb-layout-header>
+
+  <nb-layout-column>
+    <nb-card size="small">
+      <nb-card-body>
+
+        <app-dadata [config]="cfg" (selected)="addConstraint(cfg.constraint, $event)"></app-dadata>
+        <br>
+        <app-dadata [config]="cityCfg" (selected)="addConstraint(cityCfg.constraint, $event)"></app-dadata>
+
+      </nb-card-body>
+    </nb-card>
+  </nb-layout-column>
+</nb-layout>

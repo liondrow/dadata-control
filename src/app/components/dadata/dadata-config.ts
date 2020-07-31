@@ -19,6 +19,7 @@ export interface DadataConfig {
   placeholder?: string;
   class?: string;
   constraint?: string;
+  label?: string;
 }
 
 export const DadataConfigDefault: DadataConfig = {
@@ -26,5 +27,6 @@ export const DadataConfigDefault: DadataConfig = {
   delay: 500,
   limit: 10,
   placeholder: '',
-  class: ''
+  class: '',
+  label: '',
 };
