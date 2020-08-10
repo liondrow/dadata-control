@@ -1,12 +1,11 @@
 import {Component, ElementRef, EventEmitter, forwardRef, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {DadataTypes} from "../../interfaces/DadataTypes";
-import {Subject, timer} from "rxjs";
+import {Observable, Subject} from 'rxjs';
 import {DadataService} from "../../services/dadata.service";
-import {debounce} from "rxjs/operators";
+import {map, switchMap} from 'rxjs/operators';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {DadataConfig, DadataConfigDefault} from './dadata-config';
 import {DadataSuggestion} from '../../interfaces/DadataSuggestion';
-import {DadataResponse} from '../../interfaces/DadataResponse';
 
 @Component({
   selector: 'app-dadata',
@@ -22,11 +21,11 @@ import {DadataResponse} from '../../interfaces/DadataResponse';
 })
 export class DadataComponent implements OnInit, ControlValueAccessor {
 
-  suggestionData: DadataSuggestion[] = [];
+
 
   private v: any = '';
 
-  private inputString$ = new Subject<string>();
+  inputString$ = new Subject<string>();
 
   @Input() config: DadataConfig = DadataConfigDefault;
   @Input() type: DadataTypes = DadataConfigDefault.type;
@@ -45,15 +44,14 @@ export class DadataComponent implements OnInit, ControlValueAccessor {
     private dadataService: DadataService
   ) { }
 
+  suggestionData$: Observable<DadataSuggestion[]>;
+
   ngOnInit(): void {
-    this.inputString$.pipe(
-      debounce(() => timer(this.config.delay ? this.config.delay : 500)),
-    ).subscribe(x => {
-      this.dadataService.getSuggestion(x, this.config)
-        .subscribe((y: DadataResponse) => {
-          this.suggestionData = y.suggestions;
-        })
-    })
+    this.suggestionData$ = this.inputString$
+      .pipe(
+        switchMap(x =>  this.dadataService.getSuggestion(x, this.config)),
+        map(y => y.suggestions)
+      );
   }
 
   getData(value: string) {

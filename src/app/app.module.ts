@@ -15,6 +15,8 @@ import {
   NbThemeModule
 } from '@nebular/theme';
 import {RouterModule} from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import {RouterModule} from '@angular/router';
     NbAutocompleteModule,
     NbCardModule,
     NbInputModule,
-    NbSelectModule
+    NbSelectModule,
+    BrowserAnimationsModule,
+    MatAutocompleteModule
   ],
   providers: [NbSidebarService],
   bootstrap: [AppComponent]

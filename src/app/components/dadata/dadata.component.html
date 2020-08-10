@@ -1,21 +1,22 @@
-<div class="autocomplete">
-  <nb-select-label>{{config.label}}</nb-select-label>
-  <input
-    nbInput
-    [disabled]="disabled ? true : null"
-    class="autocomplete-input"
-    type="text"
-    [ngClass]="config.class ? config.class : ''"
-    #inputValue
-    (input)="getData(inputValue.value)"
-    [placeholder]="placeholder"
-    [nbAutocomplete]="auto" />
+<div class="form-group">
+  <label class="text-muted">{{config.label}}</label>
+  <div class="input-group with-focus">
+    <input
+      nbInput
+      [disabled]="disabled ? true : null"
+      class="autocomplete-input form-control"
+      type="text"
+      [ngClass]="config.class ? config.class : ''"
+      #inputValue
+      (input)="getData(inputValue.value)"
+      [placeholder]="placeholder"
+      [matAutocomplete]="auto" />
 
-  <nb-autocomplete #auto (selectedChange)="onChange($event)">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let item of suggestionData$ | async" [value]="item.value">
+        {{item.value}}
+      </mat-option>
+    </mat-autocomplete>
+  </div>
 
-    <nb-option *ngFor="let item of suggestionData" [value]="item">
-      {{item.value}}
-    </nb-option>
-
-  </nb-autocomplete>
 </div>
